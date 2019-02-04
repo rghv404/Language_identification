@@ -1,0 +1,88 @@
+The accuracy of predicted labels vs the target label after fitting my best model is:
+
+90.4374024
+
+Time taken by the model to train and predict the validation data:
+
+314.9406173 seconds
+
+Below are the models I tried from the SK Learn library:
+
+	• LinearSVC i.e Linear Support Vector Classification with standard parameters (square hinge loss function, l2 penalty and tolerance of 1e-4). This model is similar to SVC but the kernel used is linear.
+		? This model gave a maximum accuracy of about 82 percent over the cleaned data.
+	• Logistic Regression: Standard one vs all multi class logistic regression with cross-entropy loss function. The logistic regression gave better accuracy than LinSVC model but took a considerable amount of time around 500-600 seconds to train on under-sampled and clean data.
+	• MultiNomialNB: Naïve Bayes Multinomial classification is typically used for classification with discrete features, the model was faster than other classification models however the accuracy was not the best partially due to bias towards integer feature counts.
+	• SGDClassifier: The best performing model turned out to be support vector model trained on stochastic gradient descent algorithm. The main contributor towards faster fitting time and accuracy was:
+		? Randomized mini batch SGD training
+		? Models ability to work conveniently with floating point value features
+		? SVM implemented with a linear kernel
+		? Optimal learning rate eta = 1.0 / (alpha * (t + t0)) where t0 is chosen by a heuristic proposed by Leon Bottou.
+
+All models were trained on ngrams of word of length of range 1, 6 with each ngram then vectorized (tf-idf) to get a float value, this data was then fed to the model to learn the classifier. (more details on notes.txt)
+Simply feeding the model the text or even character did not help much in any form of general learning.
+
+Below is the expected performance of the trained model with the training data
+
+              precision    recall  f1-score   support
+
+          ar       0.95      0.96      0.96       189
+          az       0.97      0.77      0.86       197
+          be       0.98      0.96      0.97       209
+          bg       0.90      0.92      0.91       192
+          ca       0.88      0.93      0.91       205
+          ce       0.95      0.81      0.88        70
+         ceb       0.91      0.69      0.78        42
+          cs       0.87      0.97      0.91       210
+          da       0.80      0.95      0.87       195
+          de       0.91      0.98      0.94       209
+          el       0.99      0.91      0.95       193
+          en       0.71      0.90      0.79       198
+          eo       0.90      0.99      0.94       138
+          es       0.93      0.81      0.87       200
+          et       0.97      0.92      0.94       128
+          eu       0.86      0.99      0.92       182
+          fa       0.89      0.90      0.90       203
+          fi       0.92      1.00      0.96       199
+          fr       0.87      0.95      0.91       204
+          gl       0.90      0.67      0.77        95
+          he       1.00      0.99      1.00       194
+          hi       0.99      0.92      0.95       198
+          hr       0.62      0.52      0.56       124
+          hu       0.93      0.99      0.96       181
+          hy       0.99      0.91      0.95       177
+          id       0.75      0.98      0.85       128
+          it       0.91      0.98      0.94       205
+          ja       0.96      0.93      0.94       157
+          ka       1.00      0.96      0.98       180
+          kk       0.97      0.91      0.94       162
+          ko       1.00      0.92      0.96       139
+          la       1.00      0.65      0.78        31
+       lorem       0.93      1.00      0.97       200
+          lt       0.94      0.98      0.96       210
+          ms       0.83      0.12      0.22        40
+          nl       0.88      0.96      0.92       203
+          nn       1.00      0.60      0.75        72
+          no       0.84      0.63      0.72       121
+          pl       0.86      0.99      0.92       193
+          pt       0.83      0.95      0.88       197
+          ro       0.96      0.99      0.97       207
+          ru       0.85      0.93      0.89       187
+          sh       0.67      0.49      0.57       188
+          sk       0.93      0.72      0.81       113
+          sl       0.86      0.92      0.89       136
+          sr       0.95      0.98      0.96       213
+          sv       0.90      0.95      0.93       216
+          th       1.00      0.79      0.88        71
+          tr       0.85      1.00      0.92       205
+          uk       0.98      0.99      0.98       194
+          ur       0.99      0.85      0.92       149
+          uz       0.88      0.87      0.87       135
+          vi       0.98      0.99      0.98       200
+          vo       1.00      0.53      0.69        55
+         war       0.84      0.69      0.76        75
+          zh       0.98      0.85      0.91        52
+
+   micro avg       0.90      0.90      0.90      8966
+   macro avg       0.91      0.86      0.88      8966
+weighted avg       0.91      0.90      0.90      8966
+
